@@ -1,6 +1,6 @@
 {
   "name": "ciot-databus-client",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "KOREA Electronics Technology Institute(KETI) provides a databus client library for the project called Cognitive IoT R&D Project.",
   "main": "index.js",
   "scripts": {
@@ -22,5 +22,8 @@
     "debug": "^3.1.0",
     "hazelcast-client": "^0.6.2",
     "uuid": "^3.1.0"
+  },
+  "engines": {
+    "node": ">= 0.8"
   }
 }
