@@ -1,6 +1,6 @@
 {
   "name": "ciot-databus-client",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "KOREA Electronics Technology Institute(KETI) provides a databus client library for the project called Cognitive IoT R&D Project.",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,7 @@
     "url": "https://github.com/IoTKETI"
   },
   "keywords": [
-    "IoT",
+    "CIoT",
     "Cognitive",
     "IoT",
     "Databus"
