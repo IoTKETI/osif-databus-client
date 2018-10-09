@@ -43,11 +43,14 @@ function _pre_simulateDevicePlatform() {
         port: 5701
       }];
 
+
+
       var globalConfig = new Config.ClientConfig();
       globalConfig.networkConfig.addresses = [{
         host: 'dev.synctechno.com',
         port: 5701
       }];
+      globalConfig.groupConfig = {name: 'osif', password: 'osif-pass'};
 
       var _hazelcastClient = null;
 
@@ -241,115 +244,3 @@ _pre_simulateDevicePlatform()
   .then(_test_getGlobalData)
   .catch(_error);
 
-
-
-//
-//
-//
-//
-//
-//
-// client1.init()
-//   .then(function(client){
-//     client.startService()
-//       .then(function(value){
-//         console.log( 'startService', value );
-//
-//         return client.stopService();
-//       })
-//
-//       .then(function(value){
-//         console.log( 'stopService', value );
-//
-//         var appData = {
-//           "goName-1":"global-od-value1",
-//           "goName-2":"global-od-value2",
-//           "goName-3":"global-od-value3",
-//           "goName-4":"global-od-value4"
-//         }
-//
-//         return client.setGlobalAppData("wether", appData);
-//       })
-//
-//       .then(function(value){
-//         console.log( 'setGlobalAppData',  value );
-//
-//         var appData = {
-//           "loName-1":"global-od-value1",
-//           "loName-2":"global-od-value2",
-//           "loName-3":"global-od-value3",
-//           "loName-4":"global-od-value4"
-//         }
-//
-//         return client.setLocalAppData(appData);
-//       })
-//
-//
-//       .then(function(value){
-//         console.log( 'setLocalAppData', value );
-//
-//
-//         return client.getGlobalAppData();
-//       })
-//
-//
-//       .then(function(value){
-//         console.log( 'getGlobalAppData', value );
-//
-//         return client.getLocalAppData();
-//       })
-//
-//
-//       .then(function(value){
-//         console.log( 'getLocalAppData', value );
-//
-//
-//         return client.getGlobalOpendata('global-open-data');
-//       })
-//
-//
-//       .then(function(value){
-//         console.log( 'getGlobalOpendata', value );
-//
-//         return client.getLocalOpendata('local-open-data');
-//       })
-//
-//
-//
-//       .then(function(value){
-//         console.log( 'getLocalOpenata', value );
-//
-//
-//         var listener = {
-//           'updated':     function listener(value) {
-//             console.log( 'local listener: ', value );
-//           }
-//         };
-//
-//
-//         return client.subscribeToGlobalOpendata('global-open-data-222', listener);
-//       })
-//
-//
-//       .then(function(value){
-//         console.log( 'subscribeToGlobalOpendata', value );
-//
-//         var listener = {
-//           'updated':     function listener(value) {
-//             console.log( 'local listener: ', value );
-//           }
-//         };
-//
-//
-//         return client.subscribeToLocalOpendata('local-open-data-222', listener);
-//       })
-//
-//       .then(function(value){
-//         console.log( 'subscribeToLocalOpendata', value );
-//       })
-//
-//       .catch(function(err) {
-//         console.log( err );
-//       })
-//     ;
-//   });

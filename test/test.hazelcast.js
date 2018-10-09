@@ -3,6 +3,7 @@ var HazelcastClient = require('hazelcast-client').Client
   , uuidv4 = require('uuid/v4')
   , debug = require('debug')('osif-client-test');
 
+var OsifClient = require('../index.js').Client;
 
 
 
@@ -156,6 +157,7 @@ function _test_setGlobalData() {
   return new Promise((resolve, reject)=>{
     try {
 
+      debug('_test_setGlobalData');
       __client1.init()
         .then((client)=> {
 
