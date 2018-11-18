@@ -1,6 +1,7 @@
 {
   "service": {
     "serviceName": "testservice",
+    "serviceId": "3fb8800e-edd5-473c-97fa-ce461196aaf3",
     "versionCode": {
       "major": 0,
       "minor": 1,
@@ -46,7 +47,7 @@
     "serviceDesc": "client  테스트를 위한 서비스"
   },
   "databus": {
-    "globalHost": "dev.synctechno.com",
+    "globalHost": "osif.synctechno.com",
     "globalPort": "5701",
     "localPort": "5701"
   }

@@ -13,8 +13,15 @@ var options2 = require('./osif-service2.json');
 
 var RESERVED_KEY = {
   "OSIF_DEVICE_INFO": "OSIF_DEVICE_INFO",
+  "OSIF_LOCAL_OPENDATA": "OSIF_LOCAL_OPENDATA",
+
   "OSIF_RUNNING_DEVICE": "OSIF_RUNNING_DEVICE",
+  "OSIF_RUNNING_SERVICE": "OSIF_RUNNING_SERVICE",
   "OSIF_GLOBAL_OPENDATA": "OSIF_GLOBAL_OPENDATA",
+
+
+  "OSIF_DEVICE_ID": "OSIF_DEVICE_ID",
+
 
   "CIOT_APP_MANAGER_REQ": "CIOT_APP_MANAGER_REQ",
   "CIOT_OPENDATA_LIST": "CIOT_OPENDATA_LIST"
@@ -26,7 +33,6 @@ var __deviceId = 'a54ef2ea-49b1-4c31-a591-c60fcdf40197';
 var __client1 = null;
 var __client2 = null;
 
-var key = "a54ef2ea-49b1-4c31-a591-c60fcdf40197#testservice#global_data_1";
 //           2c830349-a72f-4e37-b4bd-b379591948ec#testservice#3b566bda-11a9-431b-b177-13460da3e0fb#global_data_1
 var keyName = "global_data_1";
 
@@ -34,7 +40,10 @@ var keyName = "global_data_1";
 //  osif-node-platform write device info to local data grid
 
 function _pre_simulateDevicePlatform() {
+  console.log( '_pre_simulateDevicePlatform' );
 
+
+  var __hazelcastClient = null;
   return new Promise((resolve, reject)=>{
     try {
       var localConfig = new Config.ClientConfig();
@@ -47,7 +56,7 @@ function _pre_simulateDevicePlatform() {
 
       var globalConfig = new Config.ClientConfig();
       globalConfig.networkConfig.addresses = [{
-        host: 'dev.synctechno.com',
+        host: 'osif.synctechno.com',
         port: 5701
       }];
       globalConfig.groupConfig = {name: 'osif', password: 'osif-pass'};
@@ -70,12 +79,36 @@ function _pre_simulateDevicePlatform() {
 
         .then((hazelcastClient)=>{
 
+          __hazelcastClient = hazelcastClient;
+
           //  Write running device info to global data grid
           var runningDeviceMap = hazelcastClient.getMap(OsifClient.RESERVED_KEY.OSIF_RUNNING_DEVICE);
           return runningDeviceMap.set(__deviceId, {deviceId: __deviceId, name: 'Test device'});
         })
 
-        .then(()=>{
+
+
+        .then(()=> {
+          return HazelcastClient.newHazelcastClient(globalConfig);
+        })
+
+        .then((globalHZClient)=>{
+          var runningServiceMap = globalHZClient.getMap(RESERVED_KEY.OSIF_RUNNING_SERVICE);
+
+          function listener(key, oldVal, newVal) {
+            console.log( 'SERVICE LISTENER', key, oldVal, newVal);
+          }
+
+          var listenerObj = {
+            'added': listener,
+            'updated': listener
+          };
+          return runningServiceMap.addEntryListener(listenerObj, 0, true);
+        })
+
+        .then((listenerId)=>{
+          console.log("LISTENR ID", listenerId);
+
 
           resolve();
         })
@@ -96,11 +129,13 @@ var aaa = function (key, oldValue, value) {
 }
 
 function _pre_listenOpenData() {
+  console.log( '_pre_listenOpenData' );
 
 
   return new Promise((resolve, reject)=>{
     try {
       var options = require('./osif-service2.json');
+      var optionsTarget = require('./osif-service.json');
       var client2 = new OsifClient(options);
       __client2 = client2;
 
@@ -112,7 +147,8 @@ function _pre_listenOpenData() {
         .then(function (client) {
 
           return client.subscribeToGlobalOpendata(
-            key,
+            optionsTarget.service.serviceId,
+            keyName,
             aaa);
         })
 
@@ -148,6 +184,7 @@ function __template() {
 
 
 function _test_startService() {
+  console.log( '_test_startService' );
 
   return new Promise((resolve, reject)=>{
     try {
@@ -179,7 +216,38 @@ function _test_startService() {
 }
 
 
+function _test_stopService() {
+  console.log( '_test_stopService' );
+
+  return new Promise((resolve, reject)=>{
+    try {
+
+      __client1.init()
+        .then((client)=> {
+          return client.stopService();
+
+        })
+
+        .then(function (client) {
+
+          resolve(client);
+        })
+
+        .catch((err)=>{
+          reject(err);
+        })
+    }
+    catch(ex) {
+      debug("EXCEPTION:", ex);
+      reject(ex);
+    }
+  });
+}
+
+
 function _test_setGlobalData() {
+  console.log( '_test_setGlobalData' );
+
   return new Promise((resolve, reject)=>{
     try {
 
@@ -207,13 +275,15 @@ function _test_setGlobalData() {
 
 
 function _test_getGlobalData() {
+  console.log( '_test_getGlobalData' );
+
   return new Promise((resolve, reject)=>{
     try {
 
       __client1.init()
         .then((client)=> {
 
-          return __client1.getGlobalOpendata(key);
+          return __client1.getGlobalAppData(keyName);
         })
 
         .then(function (vlaue) {
@@ -242,5 +312,6 @@ _pre_simulateDevicePlatform()
   .then(_pre_listenOpenData)
   .then(_test_setGlobalData)
   .then(_test_getGlobalData)
+  .then(_test_stopService)
   .catch(_error);
 
