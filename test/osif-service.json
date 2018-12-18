@@ -1,50 +1,30 @@
 {
   "service": {
-    "serviceName": "testservice",
+    "serviceName": "LED Monitor",
     "serviceId": "3fb8800e-edd5-473c-97fa-ce461196aaf3",
     "versionCode": {
-      "major": 0,
-      "minor": 1,
+      "major": 1,
+      "minor": 0,
       "revision": 0
     },
-    "creator": "",
+    "creator": "KETI",
     "openData": {
       "local": [
         {
-          "name": "local-data_1",
-          "description": "Local open data",
-          "template": "local open data format"
-        },
-        {
-          "name": "local-data_2",
-          "description": "Local open data",
-          "template": "{temp: tntwk, hum: sdfaj}"
-        },
-        {
-          "name": "local-data_3",
-          "description": "Local open data",
-          "template": "local open data format"
+          "name": "status",
+          "description": "LED status",
+          "template": "ON | OFF"
         }
       ],
       "global": [
         {
-          "name": "global_data_1",
-          "description": "global data sample",
-          "template": "global data format"
-        },
-        {
-          "name": "global_data_2",
-          "description": "global data sample",
-          "template": "global data format"
-        },
-        {
-          "name": "global_data_3",
-          "description": "global data sample",
-          "template": "global data format"
+          "name": "watt",
+          "description": "energy consumtion",
+          "template": "Number"
         }
       ]
     },
-    "serviceDesc": "client  테스트를 위한 서비스"
+    "serviceDesc": "LED monitoring service on status and energy consumtion"
   },
   "databus": {
     "globalHost": "osif.synctechno.com",

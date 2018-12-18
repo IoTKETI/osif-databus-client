@@ -1,6 +1,6 @@
 {
   "name": "osif-client",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "KOREA Electronics Technology Institute(KETI) provides a OSIF client library for the project called Cognitive IoT R&D Project.",
   "main": "index.js",
   "scripts": {
