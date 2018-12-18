@@ -1,0 +1,54 @@
+{
+  "service": {
+    "serviceName": "2222222",
+    "serviceId": "7ddb828f-c28a-43b3-82f6-80bf9311172b",
+    "versionCode": {
+      "major": 0,
+      "minor": 1,
+      "revision": 0
+    },
+    "creator": "",
+    "openData": {
+      "local": [
+        {
+          "name": "local-data_1",
+          "description": "Local open data",
+          "template": "local open data format"
+        },
+        {
+          "name": "local-data_2",
+          "description": "Local open data",
+          "template": "{temp: tntwk, hum: sdfaj}"
+        },
+        {
+          "name": "local-data_3",
+          "description": "Local open data",
+          "template": "local open data format"
+        }
+      ],
+      "global": [
+        {
+          "name": "global_data_1",
+          "description": "global data sample",
+          "template": "global data format"
+        },
+        {
+          "name": "global_data_2",
+          "description": "global data sample",
+          "template": "global data format"
+        },
+        {
+          "name": "global_data_3",
+          "description": "global data sample",
+          "template": "global data format"
+        }
+      ]
+    },
+    "serviceDesc": "client  테스트를 위한 서비스"
+  },
+  "databus": {
+    "globalHost": "osif.synctechno.com",
+    "globalPort": "5701",
+    "localPort": "5701"
+  }
+}

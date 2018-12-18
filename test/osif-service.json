@@ -1,0 +1,34 @@
+{
+  "service": {
+    "serviceName": "LED Monitor",
+    "serviceId": "3fb8800e-edd5-473c-97fa-ce461196aaf3",
+    "versionCode": {
+      "major": 1,
+      "minor": 0,
+      "revision": 0
+    },
+    "creator": "KETI",
+    "openData": {
+      "local": [
+        {
+          "name": "status",
+          "description": "LED status",
+          "template": "ON | OFF"
+        }
+      ],
+      "global": [
+        {
+          "name": "watt",
+          "description": "energy consumtion",
+          "template": "Number"
+        }
+      ]
+    },
+    "serviceDesc": "LED monitoring service on status and energy consumtion"
+  },
+  "databus": {
+    "globalHost": "osif.synctechno.com",
+    "globalPort": "5701",
+    "localPort": "5701"
+  }
+}
